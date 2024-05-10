@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/auth_models.dart';
@@ -125,7 +127,8 @@ class ApiServices {
     }
   }
 
-  Future<int?> userLogoutPostRequest(SharedPreferences prefs) async {
+  Future<Either<String, int?>> userLogoutPostRequest(
+      SharedPreferences prefs) async {
     String endPoint =
         'https://graduation-api-zaj9.onrender.com/api/v1/user/logout';
     Response response;
@@ -137,11 +140,15 @@ class ApiServices {
         data: logoutModel.toJson(),
       );
       if (response.statusCode == 200) {
-        print('Successful Response');
-        print('Response: ${response.data}');
+        print("Successful Response");
+        print("Response: ${response.data}");
+        return Right(response.statusCode);
+      } else {
+        return Left(response.data['msg']);
       }
     } catch (e) {
-      print('Error: $e');
+      return const Left(
+          'An error occurred while logging out. Please try again later.');
     }
   }
 }
