@@ -6,9 +6,7 @@ class AuthLoading extends AuthState {}
 
 class StopLoading extends AuthState {}
 
-class AuthAuthenticated extends AuthState {
-  AuthAuthenticated(userName);
-}
+class AuthAuthenticated extends AuthState {}
 
 class AuthError extends AuthState {
   final String message;

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/auth_models.dart';
+import 'package:dartz/dartz.dart';
 
 class SignInResponse {
   final Response response;
@@ -18,40 +19,53 @@ class ApiServices {
   SharedPreferences? prefs;
   ApiServices({this.prefs});
 
-  Future<dynamic> signinPostRequest(LoginModel model) async {
+  Future<Either<String, Response>> signinPostRequest(LoginModel model) async {
     String endPoint =
         'https://graduation-api-zaj9.onrender.com/api/v1/user/login';
-    Response response;
+
     Dio dio = Dio();
+    Response? response;
+    try {
+      response = await dio.post(
+        endPoint,
+        data: model.toJson(),
+      );
 
-    response = await dio.post(
-      endPoint,
-      data: model.toJson(),
-    );
-    bool loginSuccess;
-    bool success;
-    success = response.data['success'];
-    if (success == true) {
-      print('Successful Response');
-      print('Response: ${response.data}');
-
-      String accessToken = response.data['token'];
-      String refreshToken = response.data['refresh_token'];
-
-      prefs?.setString('accessToken', accessToken);
-      prefs?.setString('refreshToken', refreshToken);
-
-      print('Access Token: $accessToken');
-      print('Refresh Token: $refreshToken');
-
-      return response;
-    } else {
-      loginSuccess = false;
-      return loginSuccess;
-      // log('Error: ${response.statusCode}');
-      // log(response.data['msg']);
+      return right(response);
+      // ignore: deprecated_member_use
+    } on DioError catch (e) {
+      String errorMessage = e.response?.data['msg'] ??
+          'An error occurred. Please try again later.';
+      return left(errorMessage + " ,Please try again.");
+    } catch (e) {
+      return left('No Way!');
     }
-    // ignore: deprecated_member_use
+    // return response;
+
+    // bool loginSuccess;
+    // bool success;
+    // success = response.data['success'];
+    // if (success == true) {
+    //   print('Successful Response');
+    //   print('Response: ${response.data}');
+
+    //   String accessToken = response.data['token'];
+    //   String refreshToken = response.data['refresh_token'];
+
+    //   prefs?.setString('accessToken', accessToken);
+    //   prefs?.setString('refreshToken', refreshToken);
+
+    //   print('Access Token: $accessToken');
+    //   print('Refresh Token: $refreshToken');
+
+    //   return response;
+    // } else {
+    //   loginSuccess = false;
+    //   // return loginSuccess;
+    //   // log('Error: ${response.statusCode}');
+    //   // log(response.data['msg']);
+    // }
+    // // ignore: deprecated_member_use
   }
 
   Future<int?> signupPostRequest(SignupModel model) async {
