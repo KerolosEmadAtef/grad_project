@@ -51,6 +51,7 @@ class LoginScreen extends StatelessWidget {
           );
         } else if (state is AuthError) {
           // Show error message
+
           Navigator.of(context).pop();
           showDialog(
             context: context,

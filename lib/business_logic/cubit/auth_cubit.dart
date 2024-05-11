@@ -29,7 +29,7 @@ class AuthCubit extends Cubit<AuthState> {
         log('Sign-in successful');
         final userName = response.data['name'];
         // Authentication successful, emit AuthAuthenticated state
-        emit(AuthAuthenticated(userName));
+        emit(AuthAuthenticated());
       } else {
         log('Sign-in failed with message: ${response.data['msg']}');
         // Authentication failed, emit AuthError with error message

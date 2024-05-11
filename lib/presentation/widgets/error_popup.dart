@@ -52,9 +52,9 @@ class ErrorPopup extends StatelessWidget {
                   Text(
                     errorMessage, // Dynamic error message
                     style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
+                        fontSize: 14,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 20),
                   GestureDetector(
