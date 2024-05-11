@@ -20,7 +20,10 @@ class AuthCubit extends Cubit<AuthState> {
       // final signInResponse = await apiServices.signinPostRequest(data);
       // final response = signInResponse.response;
       // final statusCode = response.statusCode;
-      final response = await apiServices.signinPostRequest(data);
+
+      final response = await apiServices.signinPostRequest(data) ?? "";
+      log('+++++++++++++++++++++++++++++++++++++++++');
+
       log('Response status code: ${response.statusCode}');
       if (response.statusCode == 200) {
         log('Sign-in successful');

@@ -1,3 +1,7 @@
+// ignore_for_file: avoid_print, body_might_complete_normally_nullable, non_constant_identifier_names, dead_code, unused_local_variable
+
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/auth_models.dart';
@@ -19,13 +23,12 @@ class ApiServices {
   ApiServices({this.prefs});
 
   Future<dynamic> signinPostRequest(LoginModel model) async {
-    String endPoint =
-        'https://graduation-api-zaj9.onrender.com/api/v1/user/login';
+    String URL = 'https://graduation-api-zaj9.onrender.com/api/v1/user/login';
     Response response;
     Dio dio = Dio();
 
     response = await dio.post(
-      endPoint,
+      URL,
       data: model.toJson(),
     );
     bool loginSuccess;
@@ -47,25 +50,32 @@ class ApiServices {
       return response;
     } else {
       loginSuccess = false;
+      log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+      log('Error: ${response.statusCode}');
+      log(response.data['msg']);
+      log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+
       return loginSuccess;
-      // log('Error: ${response.statusCode}');
-      // log(response.data['msg']);
     }
     // ignore: deprecated_member_use
   }
 
   Future<int?> signupPostRequest(SignupModel model) async {
-    String endPoint =
+    String URL =
         'https://graduation-api-zaj9.onrender.com/api/v1/user/register';
     Response response;
     try {
       Dio dio = Dio();
       response = await dio.post(
-        endPoint,
+        URL,
         data: model.toJson(),
       );
       if (response.statusCode == 200) {
         print('Successful Response');
+        print('Response: ${response.data}');
+      }
+      if (response.statusCode == 401 || response.statusCode == 400) {
+        print('Credential Error');
         print('Response: ${response.data}');
       }
     } catch (e) {
@@ -87,6 +97,10 @@ class ApiServices {
         print('Successful Response');
         print('Response: ${response.data}');
       }
+      if (response.statusCode == 401 || response.statusCode == 400) {
+        print('Credential Error');
+        print('Response: ${response.data}');
+      }
     } catch (e) {
       print('Error: $e');
     }
@@ -104,6 +118,10 @@ class ApiServices {
       );
       if (response.statusCode == 200) {
         print('Successful Response');
+        print('Response: ${response.data}');
+      }
+      if (response.statusCode == 401 || response.statusCode == 400) {
+        print('Credential Error');
         print('Response: ${response.data}');
       }
     } catch (e) {
@@ -124,6 +142,10 @@ class ApiServices {
       );
       if (response.statusCode == 200) {
         print('Successful Response');
+        print('Response: ${response.data}');
+      }
+      if (response.statusCode == 401 || response.statusCode == 400) {
+        print('Credential Error');
         print('Response: ${response.data}');
       }
     } catch (e) {

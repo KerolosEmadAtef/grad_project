@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test1/app_router.dart';
 import 'package:test1/constants/colors.dart';
@@ -67,7 +68,7 @@ class LoginScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: AppColors.backgroundColor,
           body: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0.r),
             child: SingleChildScrollView(
               child: Center(
                 child: Column(
@@ -81,13 +82,13 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    const Row(
+                    Row(
                       children: [
                         Text(
                           'Login',
                           style: TextStyle(
                               color: AppColors.highligtedTextColor,
-                              fontSize: 28,
+                              fontSize: 28.sp,
                               fontWeight: FontWeight.w900),
                         ),
                       ],
@@ -120,8 +121,8 @@ class LoginScreen extends StatelessWidget {
                       iconAssetPath: 'assets/icons/icons8-password-24.png',
                       textTypingColor: AppColors.textTypingColor,
                     ),
-                    const SizedBox(
-                      height: 5,
+                    SizedBox(
+                      height: 5.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -142,11 +143,11 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: sizedBoxHeightSize,
+                    SizedBox(
+                      height: sizedBoxHeightSize.h,
                     ),
-                    const SizedBox(
-                      height: sizedBoxHeightSize,
+                    SizedBox(
+                      height: sizedBoxHeightSize.h,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -171,29 +172,29 @@ class LoginScreen extends StatelessWidget {
                         key: key,
                       ),
                     ),
-                    const SizedBox(
-                      height: 15,
+                    SizedBox(
+                      height: 15.h,
                     ),
                     const OrDivider(),
-                    const SizedBox(
-                      height: 15,
+                    SizedBox(
+                      height: 15.h,
                     ),
                     MainAppButtons(
-                        heightSize: 50,
+                        heightSize: 50.h,
                         textColor: Colors.black,
                         buttonColor: AppColors.backgroundColor,
                         borderColor: AppColors.highligtedTextColor,
                         text: 'Continue with Google',
                         isIcon: true,
                         icon: 'assets/icons/google.png'),
-                    const SizedBox(
-                      height: 15,
+                    SizedBox(
+                      height: 15.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text("Don't have an account?"),
-                        const SizedBox(width: 4),
+                        SizedBox(width: 4.w),
                         GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(context, signUpScreen);
